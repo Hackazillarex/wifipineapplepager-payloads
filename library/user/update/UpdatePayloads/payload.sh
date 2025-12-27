@@ -88,6 +88,7 @@ process_payloads() {
             LED ATTACK
             mkdir -p "$(dirname "$target_path")"
             cp -rf "$src_path" "$target_path"
+            LOG "[ NEW ] $(get_dir_title $src_path)"
             COUNT_NEW=$((COUNT_NEW + 1))
             continue
         fi
@@ -147,6 +148,7 @@ handle_conflict() {
     # === EXECUTION ===
     if [ "$do_overwrite" = true ]; then
         perform_safe_copy "$src" "$dst"
+        LOG "[ UPDATED ] $title"
         LED G FAST
         COUNT_UPDATED=$((COUNT_UPDATED + 1))
     else
