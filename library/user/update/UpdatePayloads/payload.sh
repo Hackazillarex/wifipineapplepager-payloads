@@ -2,7 +2,7 @@
 # Title: Update Payloads
 # Description: Downloads and syncs all payloads from github.
 # Author: cococode
-# Version: 1.0
+# Version: 1.1
 
 # === CONFIGURATION ===
 GH_ORG="hak5"
@@ -23,6 +23,7 @@ PENDING_UPDATE_PATH=""
 COUNT_NEW=0
 COUNT_UPDATED=0
 COUNT_SKIPPED=0
+LOG_BUFFER=""
 
 # === UTILITIES ===
 
@@ -36,8 +37,6 @@ get_dir_title() {
 
 setup() {
     LED SETUP
-    LOG "Starting Update..."
-
     if ! which unzip > /dev/null; then
         LOG "Installing unzip..."
         opkg update
@@ -47,7 +46,7 @@ setup() {
 
 download_payloads() {
     LED ATTACK
-    LOG "Downloading..."
+    LOG "Downloading from github... $GH_ORG/$GH_REPO/$GH_BRANCH"
     rm -rf "$TEMP_DIR"
     mkdir -p "$TEMP_DIR"
 
@@ -61,6 +60,7 @@ download_payloads() {
 }
 
 process_payloads() {
+    LED SPECIAL
     local src_lib="$TEMP_DIR/$GH_REPO-$GH_BRANCH/library"
 
     if [ ! -d "$src_lib" ]; then
@@ -68,6 +68,8 @@ process_payloads() {
         LOG "Invalid Zip Structure"
         exit 1
     fi
+
+    LOG "Processing payloads. This may take a while depending on how many upstream changes there are."
 
     # FIND STRATEGY:
     # Instead of assuming flat structure, find every 'payload.sh'
@@ -86,18 +88,16 @@ process_payloads() {
 
         # 0. DISABLED PAYLOAD - skip update
         if [ -d "$disabled_path" ]; then
-            LOG "[ DISABLED - SKIP ] $(get_dir_title $src_path)"
-            LED R FAST
+            LOG_BUFFER+="[ DISABLED - SKIP ] $(get_dir_title $src_path)\n"
             COUNT_SKIPPED=$((COUNT_SKIPPED + 1))
             continue
         fi
 
         # 1. NEW PAYLOAD
         if [ ! -d "$target_path" ]; then
-            LED ATTACK
             mkdir -p "$(dirname "$target_path")"
             cp -rf "$src_path" "$target_path"
-            LOG "[ NEW ] $(get_dir_title $src_path)"
+            LOG_BUFFER+="[ NEW ] $(get_dir_title $src_path)\n"
             COUNT_NEW=$((COUNT_NEW + 1))
             continue
         fi
@@ -158,10 +158,8 @@ handle_conflict() {
     if [ "$do_overwrite" = true ]; then
         perform_safe_copy "$src" "$dst"
         LOG "[ UPDATED ] $title"
-        LED G FAST
         COUNT_UPDATED=$((COUNT_UPDATED + 1))
     else
-        LED R FAST
         COUNT_SKIPPED=$((COUNT_SKIPPED + 1))
     fi
 }
@@ -199,6 +197,8 @@ finish() {
     fi
 
     rm -rf "$TEMP_DIR"
+
+    LOG "$LOG_BUFFER"
     LOG "Done: $COUNT_NEW New, $COUNT_UPDATED Upd, $COUNT_SKIPPED Skip"
 }
 
