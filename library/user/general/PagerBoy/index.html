@@ -4,15 +4,7 @@
     <title>PagerBoy</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta id="viewport-meta" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="icons/pagerboy_icon-192x192.png">
-    <link rel="apple-touch-icon" href="icons/pagerboy_icon-192x192.png">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#222222">
-    
+       
     <style>
         /* === CORE VARIABLES === */
         :root {
@@ -21,14 +13,14 @@
             --bezel-color: #777;
             --screen-bg: #000;
             --btn-dpad: #222;
-            --btn-action: #b90040;    /* Crimson */
+            --btn-action: #b90040;
             --btn-meta: #333;
-            --brand-color: #3020b0;   /* Nintendo Blue */
+            --brand-color: #3020b0;
             --text-color: #333;
             --switch-off: #888;
             --switch-on: #b90040;
-            --gb-screen-bg: #9bbc0f;
-            --gb-screen-fg: #0f380f;
+            --pager-screen-bg: #9bbc0f;
+            --pager-screen-fg: #0f380f;
         }
 
         /* DARK MODE */
@@ -39,8 +31,8 @@
             --btn-action: #00FF00;
             --btn-dpad: #1a1a1a;
             --brand-color: #00ff00;
-            --gb-screen-bg: #000000;
-            --gb-screen-fg: #00ff00;
+            --pager-screen-bg: #000000;
+            --pager-screen-fg: #00ff00;
             --switch-on: #00ff00;
         }
 
@@ -76,7 +68,7 @@
 
         /* === MAIN LAYOUT === */
         #app-container {
-            display: none; /* Hidden until login */
+            display: none;
             width: 100%;
             flex-direction: column; align-items: center;
         }
@@ -98,15 +90,22 @@
 
         /* === CHASSIS === */
         .chassis {
-            background-color: var(--chassis-color);
+            background-color: var(--chassis-color); 
+            background-image: 
+                linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.05) 100%),
+                repeating-radial-gradient(circle at 50% 50%, transparent 0, rgba(0,0,0,0.02) 2px);                
             width: 100%; max-width: 500px;
             border-radius: 15px 15px 60px 15px;
             padding: 30px 25px 40px 25px;
-            box-shadow: 8px 8px 20px rgba(0,0,0,0.5), inset 4px 4px 10px rgba(255,255,255,0.4);
+            box-shadow: 
+                12px 12px 24px rgba(0,0,0,0.6),
+                inset 2px 2px 3px rgba(255,255,255,0.6),
+                inset 10px 10px 20px rgba(255,255,255,0.05),
+                inset -5px -5px 15px rgba(0,0,0,0.3);
             margin: 20px auto;
             position: relative;
             display: flex; flex-direction: column;
-            border: 1px solid rgba(0,0,0,0.2);
+            border: 1px solid rgba(0,0,0,0.4);
             transition: background-color 0.3s ease;
         }
 
@@ -196,7 +195,7 @@
             color: transparent; cursor: pointer;
         }
         .btn-round:active, .btn-round.pressed { box-shadow: inset 2px 2px 5px rgba(0,0,0,0.6); }
-        .btn-label { font-family: sans-serif; font-weight: bold; font-size: 16px; color: #444; margin-top: 8px; letter-spacing: 1px; }
+        .btn-label { font-family: sans-serif; font-weight: bold; font-size: 16px; color: var(--brand-color); margin-top: 8px; letter-spacing: 1px; }
 
         /* START/SELECT */
         .pill-wrapper { display: flex; flex-direction: column; align-items: center; transform: rotate(-15deg); }
@@ -206,7 +205,7 @@
             cursor: pointer; margin-bottom: 5px;
         }
         .pill-btn:active, .pill-btn.pressed { transform: scale(0.95); box-shadow: inset 1px 1px 2px rgba(0,0,0,0.8); }
-        .pill-label { font-size: 12px; font-weight: bold; color: var(--btn-meta); letter-spacing: 1px; }
+        .pill-label { font-size: 12px; font-weight: bold; color: var(--brand-color); letter-spacing: 1px; }
 
         /* TERMINAL SECTION (8-Button Grid) */
         #extras { width: 100%; max-width: 600px; padding: 0 10px; margin-bottom: 50px; }
@@ -226,7 +225,7 @@
 
         #terminal-wrapper {
             width: 100%; height: 260px;
-            background: var(--gb-screen-bg); border-radius: 4px;
+            background: var(--pager-screen-bg); border-radius: 4px;
             padding: 5px; overflow: hidden;
         }
         #terminal { width: 100%; height: 100%; }
@@ -237,9 +236,7 @@
                 width: 100%; max-width: 100%;
                 margin: 0;
                 border-radius: 0; box-shadow: none; border: none;
-                /* KEY FIX: Use min-height 100svh to prevent jump on scroll */
                 min-height: 100svh; 
-                /* Padding Top: Increased to 50px to give room for Power Switch */
                 padding: 40px 0 30px 0;
                 justify-content: flex-start;
             }
@@ -251,7 +248,7 @@
                 border-left: 0; border-right: 0; border-top: 20px solid var(--lens-bg); border-bottom: 20px solid var(--lens-bg);
             }
             
-            /* SWITCH POSITION (In Grey Area) */
+            /* SWITCH POSITION */
             .power-switch-container { 
                 right: 10px; 
                 top: 10px; 
@@ -259,21 +256,15 @@
             
             /* Brand Alignment */
             .brand { text-align: right; padding-right: 25px; margin: 5px 0; }
-            .btn-label, .power-label { display: none !important; }
-            
-            /* Push meta buttons (Start/Select) to fill empty space */
+            .power-label { display: none !important; }
             .meta-buttons { margin-top: auto; margin-bottom: 30px; gap: 40px; }
-            
-            /* Dpad and A/B stay at the very bottom */
             .controls-row { margin-bottom: 20px; padding: 0 15px; }
             
             /* ERGONOMIC SPACING */
-            .dpad { margin-left:  15px; } /* Away from Left Edge */
-            
+            .dpad { margin-left:  15px; }            
             .ab-buttons { 
-                margin-right: 10px; /* Away from Right Edge */
-
-                margin-top: 50px;   /* Push Down for Ergonomics */
+                margin-right: 10px;
+                margin-top: 50px;
             }
             
             /* Terminal Keys */
