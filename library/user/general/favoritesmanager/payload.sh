@@ -38,10 +38,11 @@ while true; do
   # UPDATE FAVORITES
   #################################
   
-CONFIRMATION_DIALOG "If payloads in the main directory have been updated with github then this will update the payloads in favorites"  
+ 
 
   if [ "$ACTION" = "3" ]; then
 
+CONFIRMATION_DIALOG "If payloads in the main directory have been updated with github then this will update the payloads in favorites" 
     mapfile -t FAVORITES < <(
       find "$DEST_DIR" -mindepth 1 -maxdepth 1 -type d
     )
@@ -187,5 +188,6 @@ CONFIRMATION_DIALOG "If payloads in the main directory have been updated with gi
   cp -r "$SELECTED_PAYLOAD" "$DEST_DIR/"
 
   LOG "'$PAYLOAD_NAME' added to favorites."
+
 
 done
