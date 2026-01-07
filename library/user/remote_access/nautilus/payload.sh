@@ -3,7 +3,7 @@
 # Title: Nautilus
 # Description: Web-based payload launcher with live console output and GitHub integration
 # Author: JustSomeTrout (Trout / troot.)
-# Version: 1.3.0
+# Version: 1.3.2
 # Firmware: Developed for Firmware version 1.0.4
 #
 # Runs uhttpd with CGI to browse and execute payloads from your browser.

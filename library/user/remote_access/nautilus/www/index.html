@@ -130,6 +130,62 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .spinner-kill:hover{background:#e74c3c;border-color:#e74c3c;color:#fff}
 .spinner-kill svg{width:14px;height:14px;fill:currentColor}
 @keyframes spin{to{transform:rotate(360deg)}}
+.wifi-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:8px 20px;display:flex;align-items:center;gap:12px;font-size:0.85em}
+.wifi-bar.collapsed .wifi-details{display:none}
+.wifi-bar .wifi-icon{width:20px;height:20px;fill:var(--text2);flex-shrink:0}
+.wifi-bar .wifi-icon.connected{fill:var(--accent)}
+.wifi-bar .wifi-icon.disconnected{fill:var(--text2)}
+.wifi-bar .wifi-status{flex:1;display:flex;align-items:center;gap:8px}
+.wifi-bar .wifi-ssid{color:var(--text);font-weight:500}
+.wifi-bar .wifi-signal{color:var(--text2);font-size:0.9em}
+.wifi-bar .wifi-details{display:flex;align-items:center;gap:12px}
+.wifi-bar .wifi-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:0.85em;transition:all 0.15s;display:flex;align-items:center;gap:4px}
+.wifi-bar .wifi-btn:hover{border-color:var(--accent);color:var(--accent)}
+.wifi-bar .wifi-btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border:none}
+.wifi-bar .wifi-btn.primary:hover{transform:translateY(-1px);box-shadow:var(--glow)}
+.wifi-bar .wifi-btn.danger{border-color:#e74c3c;color:#e74c3c}
+.wifi-bar .wifi-btn.danger:hover{background:#e74c3c;color:#fff}
+.wifi-bar .wifi-btn svg{width:14px;height:14px;fill:currentColor}
+.wifi-bar .wifi-toggle{display:flex;align-items:center;gap:6px;color:var(--text2)}
+.wifi-bar .toggle-switch{width:36px;height:20px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;cursor:pointer;position:relative;transition:all 0.2s}
+.wifi-bar .toggle-switch::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;background:var(--text2);border-radius:50%;transition:all 0.2s}
+.wifi-bar .toggle-switch.on{background:var(--accent);border-color:var(--accent)}
+.wifi-bar .toggle-switch.on::after{left:18px;background:#000}
+.wifi-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:2500;backdrop-filter:blur(4px)}
+.wifi-modal.show{display:flex}
+.wifi-modal .wifi-modal-content{background:var(--surface);border:1px solid var(--border);border-radius:16px;width:90%;max-width:420px;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+.wifi-modal .wifi-modal-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.wifi-modal .wifi-modal-header h3{margin:0;font-size:1.1em;color:var(--text)}
+.wifi-modal .wifi-modal-close{background:none;border:none;color:var(--text2);cursor:pointer;padding:4px;display:flex}
+.wifi-modal .wifi-modal-close:hover{color:var(--text)}
+.wifi-modal .wifi-modal-close svg{width:20px;height:20px;fill:currentColor}
+.wifi-modal .wifi-modal-body{flex:1;overflow-y:auto;padding:0;min-height:150px;max-height:50vh}
+.wifi-modal .wifi-scan-status{padding:16px 20px;text-align:center;color:var(--text2);font-size:0.9em}
+.wifi-modal .wifi-scan-status .spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 8px}
+.wifi-modal #wifiNetworkList{max-height:100%;overflow-y:auto}
+.wifi-modal .wifi-network{padding:12px 20px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;align-items:center;gap:12px;transition:background 0.15s}
+.wifi-modal .wifi-network:hover{background:var(--surface2)}
+.wifi-modal .wifi-network.selected{background:rgba(0,255,136,0.1);border-left:3px solid var(--accent)}
+.wifi-modal .wifi-network .wifi-net-info{flex:1;min-width:0}
+.wifi-modal .wifi-network .wifi-net-ssid{color:var(--text);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wifi-modal .wifi-network .wifi-net-details{color:var(--text2);font-size:0.8em;display:flex;gap:8px;margin-top:2px}
+.wifi-modal .wifi-network .wifi-net-lock{width:16px;height:16px;fill:var(--text2);flex-shrink:0}
+.wifi-modal .wifi-network .wifi-net-signal{display:flex;align-items:flex-end;gap:2px;height:18px;flex-shrink:0}
+.wifi-modal .wifi-network .wifi-net-signal span{width:4px;border-radius:1px}
+.wifi-modal .wifi-password-section{padding:16px 20px;border-top:1px solid var(--border);background:var(--surface2)}
+.wifi-modal .wifi-password-section label{display:block;color:var(--text2);font-size:0.85em;margin-bottom:6px}
+.wifi-modal .wifi-password-section .password-input-wrap{display:flex;gap:8px}
+.wifi-modal .wifi-password-section input{flex:1;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9em}
+.wifi-modal .wifi-password-section input:focus{outline:none;border-color:var(--accent)}
+.wifi-modal .wifi-password-section .show-pass-btn{background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:0 12px;border-radius:8px;cursor:pointer}
+.wifi-modal .wifi-password-section .show-pass-btn:hover{color:var(--text)}
+.wifi-modal .wifi-modal-footer{padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+.wifi-modal .wifi-modal-footer .wifi-btn{padding:10px 18px;border-radius:8px;font-weight:500;font-size:0.9em;cursor:pointer;transition:all 0.15s;border:none}
+.wifi-modal .wifi-modal-footer .wifi-btn.secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+.wifi-modal .wifi-modal-footer .wifi-btn.secondary:hover{background:var(--surface);border-color:var(--text2)}
+.wifi-modal .wifi-modal-footer .wifi-btn.primary{background:var(--accent);color:#000;min-width:120px}
+.wifi-modal .wifi-modal-footer .wifi-btn.primary:hover{filter:brightness(1.1)}
+.wifi-modal .wifi-modal-footer .wifi-btn.primary:disabled{opacity:0.5;cursor:not-allowed}
 </style>
 </head>
 <body>
@@ -150,6 +206,54 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 </div>
 <div class="header-right">
 <div class="status" id="status">Connecting...</div>
+</div>
+</div>
+<div class="wifi-bar" id="wifiBar">
+<svg class="wifi-icon disconnected" id="wifiIcon" viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+<div class="wifi-status">
+<span class="wifi-ssid" id="wifiSsid">Not connected</span>
+<span class="wifi-signal" id="wifiSignal"></span>
+</div>
+<div class="wifi-details" id="wifiDetails">
+<button class="wifi-btn primary" id="wifiBrowseBtn" onclick="openWifiModal()">
+<svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+Browse Networks
+</button>
+<button class="wifi-btn danger" id="wifiDisconnectBtn" onclick="wifiDisconnect()" style="display:none">
+<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+Disconnect
+</button>
+<div class="wifi-toggle">
+<span>Client Mode</span>
+<div class="toggle-switch on" id="wifiToggle" onclick="toggleClientMode()"></div>
+</div>
+</div>
+</div>
+<div class="wifi-modal" id="wifiModal" onclick="if(event.target===this)closeWifiModal()">
+<div class="wifi-modal-content" onclick="event.stopPropagation()">
+<div class="wifi-modal-header">
+<h3>Available Networks</h3>
+<button class="wifi-modal-close" onclick="closeWifiModal()"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+</div>
+<div class="wifi-modal-body" id="wifiModalBody">
+<div class="wifi-scan-status" id="wifiScanStatus">
+<div class="spinner"></div>
+Scanning for networks...
+</div>
+<div id="wifiNetworkList"></div>
+</div>
+<div class="wifi-password-section" id="wifiPasswordSection" style="display:none">
+<label>Password for <strong id="wifiSelectedSsid"></strong></label>
+<div class="password-input-wrap">
+<input type="password" id="wifiPasswordInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')wifiConnectSelected()">
+<button class="show-pass-btn" onclick="togglePasswordVisibility()">Show</button>
+</div>
+</div>
+<div class="wifi-modal-footer">
+<button class="wifi-btn secondary" onclick="closeWifiModal()">Cancel</button>
+<button class="wifi-btn secondary" onclick="startWifiScan()">Rescan</button>
+<button class="wifi-btn primary" id="wifiConnectBtn" onclick="wifiConnectSelected()" disabled>Connect</button>
+</div>
 </div>
 </div>
 <div class="container">
@@ -202,8 +306,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 </div>
 </div>
 </div>
-<div class="modal-overlay" id="modalOverlay">
-<div class="modal">
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this){if(installing){stopInstall();}$('modalOverlay').classList.remove('show');}">
+<div class="modal" onclick="event.stopPropagation()">
 <div class="modal-title" id="modalTitle">Confirm</div>
 <div class="modal-message" id="modalMessage"></div>
 <input type="text" class="modal-input" id="modalInput" style="display:none">
@@ -227,6 +331,321 @@ let currentTab='local';
 let runningSection=null;
 let githubPayloads={},filteredGithub={},githubPRs=[],filteredPRs=[];
 const $=id=>document.getElementById(id);
+
+let wifiStatus={connected:false,ssid:'',signal:'',client_mode_enabled:false};
+let wifiNetworks=[];
+let selectedNetwork=null;
+let wifiScanEvt=null;
+let wifiConnectEvt=null;
+let wifiLoading=true;
+
+async function loadWifiStatus(){
+  wifiLoading=true;
+  updateWifiBar();
+  try{
+    const r=await fetch('/cgi-bin/api.sh?action=wifi_status');
+    const d=await r.json();
+    wifiStatus=d;
+  }catch(e){console.error('WiFi status error:',e);}
+  wifiLoading=false;
+  updateWifiBar();
+}
+
+function updateWifiBar(){
+  const icon=$('wifiIcon');
+  const ssid=$('wifiSsid');
+  const signal=$('wifiSignal');
+  const toggle=$('wifiToggle');
+  const disconnectBtn=$('wifiDisconnectBtn');
+  const browseBtn=$('wifiBrowseBtn');
+  const wifiBar=$('wifiBar');
+
+  if(wifiLoading){
+    wifiBar.style.opacity='0.6';
+    wifiBar.style.pointerEvents='none';
+    icon.classList.add('disconnected');
+    icon.classList.remove('connected');
+    ssid.textContent='Loading...';
+    signal.textContent='';
+    disconnectBtn.style.display='none';
+    browseBtn.style.display='none';
+    toggle.classList.remove('on');
+    return;
+  }
+
+  wifiBar.style.opacity='1';
+  wifiBar.style.pointerEvents='';
+
+  if(wifiStatus.client_mode_enabled){
+    toggle.classList.add('on');
+    browseBtn.style.display='';
+  }else{
+    toggle.classList.remove('on');
+    browseBtn.style.display='none';
+    disconnectBtn.style.display='none';
+    icon.classList.add('disconnected');
+    icon.classList.remove('connected');
+    ssid.textContent='Client mode disabled';
+    signal.textContent='';
+    return;
+  }
+
+  if(wifiStatus.connected&&wifiStatus.ssid){
+    icon.classList.remove('disconnected');
+    icon.classList.add('connected');
+    ssid.textContent=wifiStatus.ssid;
+    signal.textContent=wifiStatus.signal||'';
+    disconnectBtn.style.display='';
+    browseBtn.innerHTML='<svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>Change Network';
+  }else{
+    icon.classList.add('disconnected');
+    icon.classList.remove('connected');
+    ssid.textContent='Not connected';
+    signal.textContent='';
+    disconnectBtn.style.display='none';
+    browseBtn.innerHTML='<svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>Browse Networks';
+  }
+}
+
+function openWifiModal(){
+  $('wifiModal').classList.add('show');
+  $('wifiPasswordSection').style.display='none';
+  $('wifiConnectBtn').disabled=true;
+  $('wifiConnectBtn').textContent='Connect';
+  selectedNetwork=null;
+  startWifiScan();
+}
+
+function closeWifiModal(){
+  $('wifiModal').classList.remove('show');
+  if(wifiScanEvt){wifiScanEvt.close();wifiScanEvt=null;}
+  if(wifiConnectEvt){wifiConnectEvt.close();wifiConnectEvt=null;}
+}
+
+function startWifiScan(){
+  $('wifiScanStatus').style.display='block';
+  $('wifiScanStatus').innerHTML='<div class="spinner"></div>Scanning for networks...';
+  $('wifiNetworkList').innerHTML='';
+  $('wifiPasswordSection').style.display='none';
+  $('wifiConnectBtn').disabled=true;
+  selectedNetwork=null;
+  wifiNetworks=[];
+
+  if(wifiScanEvt){wifiScanEvt.close();}
+  wifiScanEvt=new EventSource('/cgi-bin/api.sh?action=wifi_scan');
+
+  wifiScanEvt.onmessage=e=>{
+    try{
+      const d=JSON.parse(e.data);
+      if(d.type==='status'){
+        $('wifiScanStatus').innerHTML='<div class="spinner"></div>'+d.message;
+      }else if(d.type==='error'){
+        $('wifiScanStatus').innerHTML='<span style="color:#e74c3c">'+d.message+'</span>';
+      }
+    }catch(err){}
+  };
+
+  wifiScanEvt.addEventListener('done',e=>{
+    wifiScanEvt.close();
+    wifiScanEvt=null;
+    try{
+      const d=JSON.parse(e.data);
+      wifiNetworks=d.networks||[];
+      renderWifiNetworks();
+    }catch(err){
+      $('wifiScanStatus').innerHTML='<span style="color:#e74c3c">Scan failed</span>';
+    }
+  });
+
+  wifiScanEvt.onerror=()=>{
+    wifiScanEvt.close();
+    wifiScanEvt=null;
+    $('wifiScanStatus').innerHTML='<span style="color:#e74c3c">Scan connection lost</span>';
+  };
+}
+
+function renderWifiNetworks(){
+  $('wifiScanStatus').style.display='none';
+  const list=$('wifiNetworkList');
+
+  if(wifiNetworks.length===0){
+    list.innerHTML='<div style="padding:20px;text-align:center;color:var(--text2)">No networks found</div>';
+    return;
+  }
+
+  wifiNetworks.sort((a,b)=>{
+    const sigA=parseInt(a.signal)||-100;
+    const sigB=parseInt(b.signal)||-100;
+    return sigB-sigA;
+  });
+
+  const seen=new Set();
+  const unique=wifiNetworks.filter(n=>{
+    if(!n.ssid||seen.has(n.ssid))return false;
+    seen.add(n.ssid);
+    return true;
+  });
+
+  list.innerHTML=unique.map((n,i)=>{
+    const isSecured=n.encryption&&n.encryption!=='Open'&&n.encryption!=='none';
+    const signalBars=getSignalBars(n.signal);
+    const lockIcon=isSecured?'<svg class="wifi-net-lock" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>':'';
+    return `<div class="wifi-network" data-idx="${i}" onclick="selectWifiNetwork(${i})">
+      <div class="wifi-net-signal">${signalBars}</div>
+      <div class="wifi-net-info">
+        <div class="wifi-net-ssid">${escHtml(n.ssid)}</div>
+        <div class="wifi-net-details"><span>Ch ${n.channel||'?'}</span><span>${n.signal||''}</span><span>${n.encryption||'Open'}</span></div>
+      </div>
+      ${lockIcon}
+    </div>`;
+  }).join('');
+}
+
+function getSignalBars(signal){
+  const sig=parseInt(signal)||-100;
+  let bars=1;
+  if(sig>-50)bars=4;
+  else if(sig>-60)bars=3;
+  else if(sig>-70)bars=2;
+  // Color based on signal strength
+  let color='#e74c3c'; // red - weak
+  if(bars>=4)color='#00ff88'; // green - excellent
+  else if(bars>=3)color='#2ecc71'; // light green - good
+  else if(bars>=2)color='#f39c12'; // orange - fair
+  const heights=[4,8,12,16];
+  return heights.map((h,i)=>`<span style="height:${h}px;background:${i<bars?color:'var(--border)'};opacity:1"></span>`).join('');
+}
+
+function selectWifiNetwork(idx){
+  document.querySelectorAll('.wifi-network').forEach(el=>el.classList.remove('selected'));
+  const el=document.querySelector(`.wifi-network[data-idx="${idx}"]`);
+  if(el)el.classList.add('selected');
+
+  selectedNetwork=wifiNetworks.filter((n,i,arr)=>{
+    const seen=new Set();
+    return arr.findIndex(x=>x.ssid===n.ssid)===i;
+  })[idx];
+
+  if(!selectedNetwork)return;
+
+  const isSecured=selectedNetwork.encryption&&selectedNetwork.encryption!=='Open'&&selectedNetwork.encryption!=='none';
+
+  if(isSecured){
+    $('wifiPasswordSection').style.display='block';
+    $('wifiSelectedSsid').textContent=selectedNetwork.ssid;
+    $('wifiPasswordInput').value='';
+    $('wifiPasswordInput').focus();
+    $('wifiConnectBtn').disabled=false;
+  }else{
+    $('wifiPasswordSection').style.display='none';
+    $('wifiConnectBtn').disabled=false;
+  }
+}
+
+function togglePasswordVisibility(){
+  const inp=$('wifiPasswordInput');
+  const btn=inp.nextElementSibling;
+  if(inp.type==='password'){
+    inp.type='text';
+    btn.textContent='Hide';
+  }else{
+    inp.type='password';
+    btn.textContent='Show';
+  }
+}
+
+async function wifiConnectSelected(){
+  if(!selectedNetwork)return;
+
+  const password=$('wifiPasswordInput').value;
+  const isSecured=selectedNetwork.encryption&&selectedNetwork.encryption!=='Open'&&selectedNetwork.encryption!=='none';
+
+  if(isSecured&&!password){
+    $('wifiPasswordInput').style.borderColor='#e74c3c';
+    $('wifiPasswordInput').focus();
+    return;
+  }
+
+  $('wifiConnectBtn').disabled=true;
+  $('wifiConnectBtn').textContent='Connecting...';
+
+  const params=new URLSearchParams({
+    action:'wifi_connect',
+    ssid:selectedNetwork.ssid,
+    password:password||'',
+    encryption:selectedNetwork.encryption||'Open',
+    bssid:selectedNetwork.bssid||''
+  });
+
+  if(wifiConnectEvt){wifiConnectEvt.close();}
+  wifiConnectEvt=new EventSource('/cgi-bin/api.sh?'+params.toString());
+
+  wifiConnectEvt.onmessage=e=>{
+    try{
+      const d=JSON.parse(e.data);
+      $('wifiConnectBtn').textContent=d.message||'Connecting...';
+    }catch(err){}
+  };
+
+  wifiConnectEvt.addEventListener('done',e=>{
+    wifiConnectEvt.close();
+    wifiConnectEvt=null;
+    try{
+      const d=JSON.parse(e.data);
+      if(d.success){
+        closeWifiModal();
+        loadWifiStatus();
+      }else{
+        $('wifiConnectBtn').textContent='Connect';
+        $('wifiConnectBtn').disabled=false;
+        $('wifiPasswordInput').style.borderColor='#e74c3c';
+        alert('Connection failed: '+(d.error||'Unknown error'));
+      }
+    }catch(err){
+      $('wifiConnectBtn').textContent='Connect';
+      $('wifiConnectBtn').disabled=false;
+    }
+  });
+
+  wifiConnectEvt.onerror=()=>{
+    wifiConnectEvt.close();
+    wifiConnectEvt=null;
+    $('wifiConnectBtn').textContent='Connect';
+    $('wifiConnectBtn').disabled=false;
+  };
+}
+
+async function wifiDisconnect(){
+  wifiLoading=true;
+  updateWifiBar();
+  try{
+    const r=await fetch('/cgi-bin/api.sh?action=wifi_disconnect');
+    const d=await r.json();
+    await loadWifiStatus();
+  }catch(e){
+    console.error('Disconnect error:',e);
+    wifiLoading=false;
+    updateWifiBar();
+  }
+}
+
+async function toggleClientMode(){
+  const toggle=$('wifiToggle');
+  const newState=!toggle.classList.contains('on');
+
+  wifiLoading=true;
+  updateWifiBar();
+
+  try{
+    const r=await fetch('/cgi-bin/api.sh?action=wifi_toggle&enable='+(newState?'1':'0'));
+    const d=await r.json();
+    await loadWifiStatus();
+  }catch(e){
+    console.error('Toggle error:',e);
+    wifiLoading=false;
+    updateWifiBar();
+  }
+}
 
 function switchTab(tab){
   currentTab=tab;
@@ -461,8 +880,9 @@ function selectGithubPayload(path){
       selected={...found,isGithub:true};
       const authorHtml=found.author?'<span><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'+escHtml(found.author)+'</span>':'';
       const versionHtml=found.version?'<span><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>v'+escHtml(found.version)+'</span>':'';
-      $('detail').innerHTML='<h2>'+escHtml(found.title)+'</h2><div class="meta">'+authorHtml+versionHtml+'<span><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>GitHub</span></div><div class="description">'+escHtml(found.description||'No description')+'</div><div class="actions"><button class="btn" id="runBtn" onclick="runGithub()"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Run from GitHub</button></div>';
+      $('detail').innerHTML='<h2>'+escHtml(found.title)+'</h2><div class="meta">'+authorHtml+versionHtml+'<span><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>GitHub</span></div><div class="description">'+escHtml(found.description||'No description')+'</div><div class="actions"><button class="btn" id="runBtn" onclick="runGithub()"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Run from GitHub</button><button class="btn secondary" id="installBtn" onclick="installGithub()"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Install Locally</button></div>';
       updateRunBtn();
+      updateInstallBtn();
       break;
     }
   }
@@ -538,7 +958,7 @@ async function loadPRPayloads(number){
     const name=f.filename.split('/').slice(-2,-1)[0]||f.filename;
     html+='<div class="payload pr-payload" data-pr-sha="'+escHtml(pr.sha)+'" data-pr-file="'+escHtml(f.filename)+'" style="margin:4px 0" onclick="selectPRPayload(this,\''+escHtml(pr.sha)+'\',\''+escHtml(f.filename)+'\',\''+escHtml(name)+'\',\''+escHtml(forkRepo)+'\')"><div class="name">'+escHtml(name)+'</div><div class="desc">'+escHtml(f.filename)+'</div></div>';
   }
-  html+='</div><div id="prPayloadActions" style="display:none;margin-top:12px"><button class="btn" id="runBtn" onclick="runSelectedPRPayload()"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Run Payload</button></div>';
+  html+='</div><div id="prPayloadActions" style="display:none;margin-top:12px"><button class="btn" id="runBtn" onclick="runSelectedPRPayload()"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Run Payload</button><button class="btn secondary" id="installPRBtn" onclick="installSelectedPRPayload()" style="margin-left:10px"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Install Locally</button></div>';
   $('detail').innerHTML+=html;
   updateRunBtn();
 }
@@ -629,6 +1049,11 @@ function runSelectedPRPayload(){
   runPRPayload(selectedPRPayload.sha,selectedPRPayload.filename,selectedPRPayload.forkRepo);
 }
 
+function installSelectedPRPayload(){
+  if(!selectedPRPayload)return;
+  installPRPayload(selectedPRPayload.sha,selectedPRPayload.filename,selectedPRPayload.name,selectedPRPayload.forkRepo);
+}
+
 async function runPRPayload(sha,filename,forkRepo){
   if(running){stop();return;}
   running=true;runningSection='pr';lineCount=0;
@@ -706,6 +1131,270 @@ async function runPRPayload(sha,filename,forkRepo){
     $('status').textContent='Connection lost';
     $('status').classList.remove('running');
   };
+}
+
+let installing=false;
+let installEvtSource=null;
+
+function updateInstallBtn(){
+  const btn=$('installBtn');
+  if(!btn)return;
+  if(installing){
+    btn.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 6h12v12H6z"/></svg>Cancel Install';
+    btn.classList.remove('secondary');
+    btn.classList.add('stop');
+  }else{
+    btn.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Install Locally';
+    btn.classList.add('secondary');
+    btn.classList.remove('stop');
+  }
+}
+
+function stopInstall(){
+  if(installEvtSource){installEvtSource.close();installEvtSource=null;}
+  installing=false;
+  updateInstallBtn();
+  $('status').textContent='Install cancelled';
+  $('status').classList.remove('running');
+  fetch('/cgi-bin/api.sh?action=stop').catch(()=>{});
+  const line=document.createElement('div');
+  line.className='line red';
+  line.textContent='[Install] Cancelled - partial files cleaned up';
+  $('console').appendChild(line);
+  lineCount++;
+  $('lineCount').textContent=lineCount+' lines';
+  $('console').scrollTop=$('console').scrollHeight;
+}
+
+async function installGithub(forceOverwrite=false){
+  if(!selected||!selected.isGithub)return;
+  if(installing){stopInstall();return;}
+  if(running){stop();}
+
+  installing=true;lineCount=0;
+  updateInstallBtn();
+  $('console').innerHTML='';
+  $('lineCount').textContent='0 lines';
+  $('status').textContent='Installing payload...';
+  $('status').classList.add('running');
+
+  let token='';
+  try{
+    const tokenResp=await fetch('/cgi-bin/api.sh?action=token');
+    const tokenData=await tokenResp.json();
+    if(tokenData.code==='AUTH_REQUIRED'){
+      installing=false;updateInstallBtn();
+      $('status').textContent='Session expired';$('status').classList.remove('running');
+      showLogin();return;
+    }
+    token=tokenData.token||'';
+  }catch(e){
+    console.error('Failed to get CSRF token:',e);
+    $('status').textContent='Security error: Could not get token';
+    installing=false;
+    updateInstallBtn();
+    return;
+  }
+
+  const forceParam=forceOverwrite?'&force=1':'';
+  installEvtSource=new EventSource(`/cgi-bin/api.sh?action=install_github&github_url=${encodeURIComponent(selected.rawUrl)}&token=${encodeURIComponent(token)}${forceParam}`);
+
+  installEvtSource.onmessage=e=>{
+    try{
+      const d=JSON.parse(e.data);
+      const text=d.text.replace(/\\n/g,'\n').replace(/\\\\n/g,'\n');
+      const lines=text.split('\n');
+      lines.forEach(t=>{
+        if(t.trim()==='')return;
+        const line=document.createElement('div');
+        line.className='line '+(d.color||'');
+        line.textContent=t;
+        $('console').appendChild(line);
+        lineCount++;
+      });
+      $('lineCount').textContent=lineCount+' lines';
+      $('console').scrollTop=$('console').scrollHeight;
+    }catch(err){}
+  };
+
+  installEvtSource.addEventListener('exists',async e=>{
+    installEvtSource.close();
+    installing=false;
+    updateInstallBtn();
+    $('status').textContent='Payload exists';
+    $('status').classList.remove('running');
+      
+    showInstallConfirm();
+  });
+
+  installEvtSource.addEventListener('done',e=>{
+    installEvtSource.close();
+    installing=false;
+    updateInstallBtn();
+    try{
+      const d=JSON.parse(e.data);
+      if(d.status==='success'){
+        $('status').textContent='Installed: '+d.name;
+        // Refresh local payloads list
+        load();
+      }else{
+        $('status').textContent='Install failed: '+(d.message||'Unknown error');
+      }
+    }catch(err){
+      $('status').textContent='Install complete';
+    }
+    $('status').classList.remove('running');
+  });
+
+  installEvtSource.onerror=()=>{
+    installEvtSource.close();
+    installing=false;
+    updateInstallBtn();
+    $('status').textContent='Install connection lost';
+    $('status').classList.remove('running');
+  };
+}
+
+let pendingPRInstall=null;
+
+function showInstallConfirm(isPR=false){
+  $('modalTitle').textContent='Overwrite Existing?';
+  $('modalMessage').innerHTML='This payload is already installed locally.<br><br>Do you want to <strong>delete the existing version</strong> and install the new one from GitHub?';
+  $('modalInput').style.display='none';
+  $('modalConfirm').textContent='Yes, Overwrite';
+  $('modalCancel').textContent='Cancel';
+  $('modalCancel').style.display='';
+  $('modalTitle').style.color='#ffd93d';
+  $('modalOverlay').classList.add('show');
+
+  $('modalConfirm').onclick=()=>{
+    $('modalOverlay').classList.remove('show');
+    $('modalConfirm').onclick=()=>respondPrompt(true);
+    if(isPR&&pendingPRInstall){
+      installPRPayload(pendingPRInstall.sha,pendingPRInstall.filename,pendingPRInstall.name,pendingPRInstall.forkRepo,true);
+      pendingPRInstall=null;
+    }else{
+      installGithub(true);
+    }
+  };
+  $('modalCancel').onclick=()=>{
+    $('modalOverlay').classList.remove('show');
+    $('modalCancel').onclick=()=>respondPrompt(false);
+    pendingPRInstall=null;
+    const line=document.createElement('div');
+    line.className='line yellow';
+    line.textContent='[Install] Cancelled - existing payload preserved';
+    $('console').appendChild(line);
+    lineCount++;
+    $('lineCount').textContent=lineCount+' lines';
+  };
+}
+
+async function installPRPayload(sha,filename,name,forkRepo,forceOverwrite=false){
+  if(installing){stopInstall();return;}
+  if(running){stop();}
+
+  installing=true;lineCount=0;
+  updateInstallPRBtn();
+  $('console').innerHTML='';
+  $('lineCount').textContent='0 lines';
+  $('status').textContent='Installing PR payload...';
+  $('status').classList.add('running');
+
+  let token='';
+  try{
+    const tokenResp=await fetch('/cgi-bin/api.sh?action=token');
+    const tokenData=await tokenResp.json();
+    if(tokenData.code==='AUTH_REQUIRED'){
+      installing=false;updateInstallPRBtn();
+      $('status').textContent='Session expired';$('status').classList.remove('running');
+      showLogin();return;
+    }
+    token=tokenData.token||'';
+  }catch(e){
+    console.error('Failed to get CSRF token:',e);
+    $('status').textContent='Security error: Could not get token';
+    installing=false;
+    updateInstallPRBtn();
+    return;
+  }
+
+  const repo=forkRepo||GITHUB_REPO;
+  const rawUrl=`${GITHUB_RAW}/${repo}/${sha}/${filename}`;
+  const forceParam=forceOverwrite?'&force=1':'';
+
+  pendingPRInstall={sha,filename,name,forkRepo};
+
+  installEvtSource=new EventSource(`/cgi-bin/api.sh?action=install_pr&github_url=${encodeURIComponent(rawUrl)}&pr_path=${encodeURIComponent(filename)}&token=${encodeURIComponent(token)}${forceParam}`);
+
+  installEvtSource.onmessage=e=>{
+    try{
+      const d=JSON.parse(e.data);
+      const text=d.text.replace(/\\n/g,'\n').replace(/\\\\n/g,'\n');
+      const lines=text.split('\n');
+      lines.forEach(t=>{
+        if(t.trim()==='')return;
+        const line=document.createElement('div');
+        line.className='line '+(d.color||'');
+        line.textContent=t;
+        $('console').appendChild(line);
+        lineCount++;
+      });
+      $('lineCount').textContent=lineCount+' lines';
+      $('console').scrollTop=$('console').scrollHeight;
+    }catch(err){}
+  };
+
+  installEvtSource.addEventListener('exists',async e=>{
+    installEvtSource.close();
+    installing=false;
+    updateInstallPRBtn();
+    $('status').textContent='Payload exists';
+    $('status').classList.remove('running');
+    showInstallConfirm(true);
+  });
+
+  installEvtSource.addEventListener('done',e=>{
+    installEvtSource.close();
+    installing=false;
+    pendingPRInstall=null;
+    updateInstallPRBtn();
+    try{
+      const d=JSON.parse(e.data);
+      if(d.status==='success'){
+        $('status').textContent='Installed: '+d.name;
+        load();
+      }else{
+        $('status').textContent='Install failed: '+(d.message||'Unknown error');
+      }
+    }catch(err){
+      $('status').textContent='Install complete';
+    }
+    $('status').classList.remove('running');
+  });
+
+  installEvtSource.onerror=()=>{
+    installEvtSource.close();
+    installing=false;
+    pendingPRInstall=null;
+    updateInstallPRBtn();
+    $('status').textContent='Install connection lost';
+    $('status').classList.remove('running');
+  };
+}
+
+function updateInstallPRBtn(){
+  const btn=$('installPRBtn');
+  if(!btn)return;
+  if(installing){
+    btn.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 6h12v12H6z"/></svg>Cancel Install';
+    btn.classList.remove('secondary');
+    btn.classList.add('stop');
+  }else{
+    btn.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Install Locally';
+    btn.classList.add('secondary');
+    btn.classList.remove('stop');
+  }
 }
 
 function sha256(s){
@@ -790,6 +1479,7 @@ async function load(){
     filtered=payloads;
     render();
     $('status').textContent='Ready • '+Object.values(payloads).flat().length+' payloads';
+    loadWifiStatus();
   }catch(e){
     $('status').textContent='Error: '+e.message;
     $('status').classList.add('error');
@@ -950,11 +1640,17 @@ function updateRunBtn(){
 
 function stop(hardStop=true){
   const wasRunning=running;
+  const wasInstalling=installing;
   if(evtSource){evtSource.close();evtSource=null;}
+  if(installEvtSource){installEvtSource.close();installEvtSource=null;}
   running=false;
+  installing=false;
+  pendingPRInstall=null;
   runningSection=null;
   hideSpinner();
   updateRunBtn();
+  updateInstallBtn();
+  updateInstallPRBtn();
   $('status').textContent='Ready • '+Object.values(payloads).flat().length+' payloads';
   $('status').classList.remove('running');
   fetch('/cgi-bin/api.sh?action=stop').catch(()=>{});
@@ -962,6 +1658,15 @@ function stop(hardStop=true){
     const line=document.createElement('div');
     line.className='line red';
     line.textContent='Payload hard-stopped';
+    $('console').appendChild(line);
+    lineCount++;
+    $('lineCount').textContent=lineCount+' lines';
+    $('console').scrollTop=$('console').scrollHeight;
+  }
+  if(wasInstalling && hardStop){
+    const line=document.createElement('div');
+    line.className='line red';
+    line.textContent='[Install] Cancelled - partial files cleaned up';
     $('console').appendChild(line);
     lineCount++;
     $('lineCount').textContent=lineCount+' lines';
