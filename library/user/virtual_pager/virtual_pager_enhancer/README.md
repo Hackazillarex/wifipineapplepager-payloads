@@ -1,8 +1,8 @@
-# Virtual Pager Enhancer - v2.0
+# Virtual Pager Enhancer - v2.1
 
 ## Overview
 
-Virtual Pager Enhancer is a lightweight client-side enhancement for the Virtual Pager web interface that improves both **loot management** and **visual customization**.
+Virtual Pager Enhancer is a lightweight client-side enhancement for the Virtual Pager web interface that improves **loot management**, **visual customization** and **System information monitoring**.
 
 ## How to use
 
@@ -23,3 +23,10 @@ Once finished, refresh the Virtual Pager web page. If everything worked correctl
 
   * Changing background colors
   * Setting custom background images
+
+* 💻 **System Info**
+  Displays key system metrics, including:
+
+  * Disk usage
+  * RAM usage
+  * CPU usage
