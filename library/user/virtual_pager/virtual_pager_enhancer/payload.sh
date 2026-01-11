@@ -2,7 +2,7 @@
 # Title: Virtual Pager Enhancer
 # Author: Rektile404
 # Description: Tool used to add functionality to the virtual pager
-# Version: 2.2
+# Version: 2.2.1
 
 CONFIG_PATH="./config"
 CONFIG_FILE="config.json"
@@ -19,7 +19,7 @@ INDEX_FILE="index.html"
 VIRTUAL_PAGER_ENHANCER_TAG="<!-- Virtual Pager Enhancer BEGIN -->"
 VIRTUAL_PAGER_ENHANCER_END="<!-- Virtual Pager Enhancer END -->"
 
-CURRENT_VERSION="2.2"
+CURRENT_VERSION="2.2.1"
 SERVER_PORT=4040
 SERVICE_FILE="/etc/init.d/virtual_pager_enhancer_server"
 
@@ -42,7 +42,8 @@ update() {
         /etc/init.d/$(basename "$SERVICE_FILE") stop
         /etc/init.d/$(basename "$SERVICE_FILE") disable
     fi
-
+    
+    cp -rf "$BACKUP_VIRTUAL_PAGER_DIR/$IMG_DIR/." "$VIRTUAL_PAGER_DIR/$IMG_DIR/" 2>/dev/null
     cp -f "$BACKUP_VIRTUAL_PAGER_DIR/$INDEX_FILE" "$VIRTUAL_PAGER_DIR/$INDEX_FILE" 2>/dev/null
     echo "{\"version\":\"$CURRENT_VERSION\"}" > "$CONFIG_PATH/$CONFIG_FILE"
 }
