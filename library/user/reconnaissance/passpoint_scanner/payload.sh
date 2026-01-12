@@ -170,13 +170,24 @@ install_wpa_supplicant() {
     opkg update 2>&1 | grep -v "Failed to download" | head -5
 
     LOG ""
+
+    # Remove conflicting wpad packages (wpad-basic-mbedtls, wpad-mini, etc.)
+    # wpad-openssl is a full replacement with same functionality plus HS2.0
+    local conflicts=$(opkg list-installed 2>/dev/null | grep -E "^wpad-" | grep -v "wpad-openssl" | cut -d' ' -f1)
+    if [ -n "$conflicts" ]; then
+        LOG "Removing conflicting packages..."
+        for pkg in $conflicts; do
+            opkg remove "$pkg" 2>/dev/null
+        done
+    fi
+
     LOG "Installing wpad-openssl..."
 
     # Capture install output for error reporting
     local install_output
     local install_err
 
-    # Try wpad-openssl first (full package with hostapd+wpa_supplicant)
+    # Install wpad-openssl (full package with hostapd+wpa_supplicant+HS2.0)
     install_output=$(opkg install wpad-openssl 2>&1)
     if [ $? -eq 0 ]; then
         LOG ""
@@ -188,18 +199,6 @@ install_wpa_supplicant() {
     fi
     install_err="$install_output"
 
-    # Fall back to wpa-supplicant-openssl
-    LOG "Trying wpa-supplicant-openssl..."
-    install_output=$(opkg install wpa-supplicant-openssl 2>&1)
-    if [ $? -eq 0 ]; then
-        LOG ""
-        LOG "SUCCESS! wpa-supplicant-openssl installed."
-        LOG "ANQP queries now available."
-        LOG ""
-        sleep 2
-        return 0
-    fi
-
     LOG ""
     LOG "ERROR: Installation failed!"
     LOG ""
@@ -207,7 +206,7 @@ install_wpa_supplicant() {
     LOG "$(echo "$install_err" | grep -i "error\|cannot\|conflict" | head -2)"
     LOG ""
     LOG "Try manually:"
-    LOG "  opkg update"
+    LOG "  opkg remove wpad-basic-mbedtls"
     LOG "  opkg install wpad-openssl"
     LOG ""
     LOG "[A] Retry  [B] Continue without"
