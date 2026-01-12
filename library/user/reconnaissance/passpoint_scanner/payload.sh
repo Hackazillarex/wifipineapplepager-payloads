@@ -171,14 +171,32 @@ install_wpa_supplicant() {
 
     LOG ""
 
-    # Remove conflicting wpad packages (wpad-basic-mbedtls, wpad-mini, etc.)
-    # wpad-openssl is a full replacement with same functionality plus HS2.0
+    # Check for conflicting wpad packages (wpad-basic-mbedtls, wpad-mini, etc.)
     local conflicts=$(opkg list-installed 2>/dev/null | grep -E "^wpad-" | grep -v "wpad-openssl" | cut -d' ' -f1)
     if [ -n "$conflicts" ]; then
-        LOG "Removing conflicting packages..."
-        for pkg in $conflicts; do
-            opkg remove "$pkg" 2>/dev/null
-        done
+        LOG "Package conflict detected:"
+        LOG "  $conflicts"
+        LOG ""
+        LOG "wpad-openssl will REPLACE this."
+        LOG "It has same features + HS2.0."
+        LOG "All WiFi functions will still work."
+        LOG ""
+        LOG "[A] Replace  [B] Cancel"
+        local btn=$(WAIT_FOR_INPUT)
+        case "$btn" in
+            A|a)
+                LOG ""
+                LOG "Removing $conflicts..."
+                for pkg in $conflicts; do
+                    opkg remove "$pkg" 2>/dev/null
+                done
+                ;;
+            *)
+                LOG "Cancelled."
+                sleep 1
+                return 1
+                ;;
+        esac
     fi
 
     LOG "Installing wpad-openssl..."
