@@ -38,6 +38,6 @@ case ${button} in
     *) 
         LOG "User chose to exit."
         LOG ""
-	LOG ""
+		LOG ""
         ;;
 esac
