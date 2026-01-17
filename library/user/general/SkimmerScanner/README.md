@@ -52,17 +52,6 @@ Each match increases the risk score. When the score reaches 3 or higher, an aler
 
 ---
 
-## Payload Modes
-
-This payload includes two operating modes:
-
-| File | Mode | Description |
-|------|------|-------------|
-| `payload.sh` | Interactive | Full-featured scanner with prompts, detailed logging, and on-screen status |
-| `payload_alert.sh` | Background Alert | Silent background scanner that only alerts on detection |
-
----
-
 ## Usage
 
 ### Interactive Mode (`payload.sh`)
@@ -73,23 +62,6 @@ This payload includes two operating modes:
 4. The device will continuously scan and alert on suspicious devices
 5. Check ATMs, gas pumps, or payment terminals when alerted
 6. Press the button to stop scanning
-
-### Background Alert Mode (`payload_alert.sh`)
-
-A lightweight "fire and forget" scanner that runs silently:
-
-1. Launch **payload_alert.sh** from the payload directory
-2. The scanner runs silently in the background with no prompts
-3. Alerts (LED, vibration, screen popup) only appear when skimmers are detected
-4. No logging overhead - designed for low-power continuous monitoring
-5. Press the button to stop
-
-**Differences from Interactive Mode:**
-- No startup prompt - begins scanning immediately
-- No logging to disk - reduces storage/battery usage
-- Shorter scan cycles (6s BLE + 4s Classic vs 8s + 5s)
-- Faster adapter reset cycles
-- Optimized for extended background operation
 
 ### When You Get an Alert
 
@@ -172,7 +144,7 @@ This payload detects the following commonly-used skimmer hardware:
 
 ### False Positives
 
-The scanner has been tuned to minimize false positives from legitimate devices:
+The scanner has been tuned to minimize false positives from legitimate devices but it is still being field tested:
 
 - **Random MAC addresses** (iPhones, Android phones, smartwatches) are NOT flagged - these use BLE privacy features
 - **Unnamed random MAC devices** are ignored - this is normal BLE privacy behavior
@@ -266,7 +238,7 @@ Always report suspected skimmers to:
 
 ## Credits
 
-- **Author:** Community Contribution
+- **Author:** Gekitsuu
 - **Based on:** blue_clues (Bluetooth reconnaissance) & BT_Pager_Warden (monitoring)
 - **Platform:** WiFi Pineapple Pager
 - **License:** Same as parent repository
@@ -275,5 +247,4 @@ Always report suspected skimmers to:
 
 ## Version History
 
-- **v1.1** - Added background alert mode (`payload_alert.sh`) for silent continuous monitoring
 - **v1.0** - Initial release with multi-factor detection and risk assessment
