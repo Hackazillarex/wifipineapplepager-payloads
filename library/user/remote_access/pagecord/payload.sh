@@ -15,21 +15,22 @@ ENV_FILE="$DCCONTROL_DIR/.env"
 PIDFILE="$DCCONTROL_DIR/logs/dc_control.pid"
 LOGFILE="$DCCONTROL_DIR/logs/dc_control.log"
 
-
 # -------- splash screen ---------
 LOG ""
-LOG "cyan" '+===========================+'
-LOG "cyan" '| ------- PageCord -------- |'
-LOG "cyan" '| - Discord Pager Control - |'
-LOG "cyan" '+========== v1.2 ===========+'
+LOG blue "+===========================+"
+LOG blue "| ------- PageCord -------- |"
+LOG blue "| - Discord Pager Control - |"
+LOG blue "+========== v1.2 ===========+"
 LOG ""
-LOG "yellow" '| Control Your Pager Through Discord! |'
+LOG yellow "| Control Your Pager Through Discord! |"
 LOG ""
+
 
 
 # ==================================
 # - SETUP
 # ==================================
+
 LOG blue "1 : Starting Setup..."
 
 if [ ! -d "$DCCONTROL_DIR/logs" ] ; then
@@ -204,7 +205,7 @@ Option_List() {
           \"embeds\": [
             {
               \"title\": \":link: **Options List** :link:\",
-              \"description\": \"- **options**  - Show the options list\n- **pause**    - Pause this session (re-authenticate to resume)\n- **background**  - Restart the payload in the background\n- **sysinfo**    - Show basic system information\n- **close**    - Close this session permanently\n- **download**   - Send a file to Discord [download path/to/file.txt]\n- **upload**     - Upload file to Pager [attach to 'upload' command]\",
+              \"description\": \"- **options**  - Show the options list\n- **pause**    - Pause this session (re-authenticate to resume)\n- **background**  - Restart the payload in the background\n- **sysinfo**    - Show basic system information\n- **close**    - Close this session permanently\n- **download**   - Send a file to Discord [download path/to/file.txt]\n- **upload**     - Upload file to Pager [attach to 'upload' command]\n*You can also use regular Linux and Duckyscript commands. Output is split into 2000 character chunks.* \",
               \"color\": 16777215
             }
           ]
