@@ -68,19 +68,6 @@ STOP_SPINNER() {
   echo "[✓] Spinner stopped"
 }
 
-VIBRATE() {
-  echo "[~] Vibrate ($1 ms)"
-}
-
-RINGTONE() {
-  if [ -f "$1" ]; then
-    echo "[♪] Playing ringtone: $1"
-    aplay "$1" 2>/dev/null || echo "(audio unavailable)"
-  else
-    echo "[♪] Ringtone requested: $1 (file not found)"
-  fi
-}
-
 # ---------- SAFETY ----------
 export -f LOG ALERT ERROR_DIALOG PROMPT CONFIRMATION_DIALOG
 export -f TEXT_PICKER NUMBER_PICKER IP_PICKER MAC_PICKER
