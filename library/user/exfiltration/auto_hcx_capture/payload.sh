@@ -1,12 +1,17 @@
 #!/bin/bash
 # Title: Auto_HCX_Capture
+#Made by: MusicalVR
+
+LOG "Starting HCX"
+LOG "HCX STARTED"
+
 INTERFACE="wlan1mon"
 LOOT_DIR="/root/loot/handshakes"
 mkdir -p $LOOT_DIR
 
 # Start Signal (Blue)
-VIBRATE 50 100
-LED B 100
+VIBRATE "alert"
+LED red solid B
 LOG "Field Capture Started..."
 
 # Launch Attack
@@ -16,7 +21,7 @@ HCX_PID=$!
 
 # 10 Minute Monitor Loop
 for i in {1..10}; do
-    LED Y 100
+    LED blue solid A
     sleep 30
     LED FINISH
     sleep 30
@@ -25,6 +30,7 @@ done
 
 # Success Signal (Green)
 kill -2 $HCX_PID
-VIBRATE 100 800
-LED G 100
+VIBRATE "alert"
+LED green solid
+LED blue solid 
 LOG "Capture Complete: $(basename $FILE_NAME)"
