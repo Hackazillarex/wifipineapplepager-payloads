@@ -1469,16 +1469,6 @@ run_github() {
 
     [ -f "$PID_FILE" ] && { kill $(cat "$PID_FILE") 2>/dev/null; rm -f "$PID_FILE"; }
 
-    url_path="${github_url#https://raw.githubusercontent.com/}"
-    repo_owner="${url_path%%/*}"
-    url_path="${url_path#*/wifipineapplepager-payloads/}"
-    branch="${url_path%%/*}"
-    folder_path="${url_path#*/}"
-    folder_path="${folder_path%/payload.sh}"
-    full_repo="${repo_owner}/wifipineapplepager-payloads"
-
-    payload_folder_name="${folder_path##*/}"
-
     GITHUB_DIR="/tmp/nautilus_github_$$"
     mkdir -p "$GITHUB_DIR"
 
@@ -1493,10 +1483,44 @@ run_github() {
         printf 'data: {"text":"[%s] %s","color":"%s"}\n\n' "$color" "$escaped" "$color"
     }
 
-    download_folder="$folder_path"
-    sse_msg "cyan" "[GitHub] Fetching payload: $download_folder/"
+    # Handle ringtones as single file download
+    case "$github_url" in
+        *.rtttl)
+            rtttl_filename=$(basename "$github_url")
+            sse_msg "cyan" "[GitHub] Downloading ringtone: $rtttl_filename"
+            dl_ok=0
+            if command -v curl >/dev/null 2>&1; then
+                curl -sf -o "$GITHUB_DIR/$rtttl_filename" "$github_url" 2>/dev/null && dl_ok=1
+            elif command -v wget >/dev/null 2>&1; then
+                wget -q -O "$GITHUB_DIR/$rtttl_filename" "$github_url" 2>/dev/null && dl_ok=1
+            fi
+            if [ "$dl_ok" = "1" ]; then
+                sse_msg "green" "[GitHub] Downloaded: $rtttl_filename"
+                GITHUB_TARGET="$GITHUB_DIR/$rtttl_filename"
+                target_type="ringtone"
+            else
+                sse_msg "red" "[GitHub] Failed to download ringtone"
+                printf 'event: done\ndata: {"status":"error"}\n\n'
+                rm -rf "$GITHUB_DIR"
+                exit 1
+            fi
+            ;;
+        *)
+            # Payloads: download folder structure
+            url_path="${github_url#https://raw.githubusercontent.com/}"
+            repo_owner="${url_path%%/*}"
+            url_path="${url_path#*/wifipineapplepager-payloads/}"
+            branch="${url_path%%/*}"
+            folder_path="${url_path#*/}"
+            folder_path="${folder_path%/payload.sh}"
+            full_repo="${repo_owner}/wifipineapplepager-payloads"
 
-    queue_file="/tmp/nautilus_queue_$$"
+            payload_folder_name="${folder_path##*/}"
+
+            download_folder="$folder_path"
+            sse_msg "cyan" "[GitHub] Fetching payload: $download_folder/"
+
+            queue_file="/tmp/nautilus_queue_$$"
     download_count=0
     download_errors=0
     api_failed=0
@@ -1611,16 +1635,8 @@ run_github() {
 
     sse_msg "cyan" "[GitHub] Download complete: $download_count files, $download_errors errors"
 
-    # Determine the target file based on URL type
-    case "$github_url" in
-        *.rtttl)
-            rtttl_file=$(basename "$github_url")
-            GITHUB_TARGET="$GITHUB_DIR/$rtttl_file"
-            target_type="ringtone"
-            ;;
-        *)
-            GITHUB_TARGET="$GITHUB_DIR/payload.sh"
-            target_type="payload"
+    GITHUB_TARGET="$GITHUB_DIR/payload.sh"
+    target_type="payload"
             ;;
     esac
 
