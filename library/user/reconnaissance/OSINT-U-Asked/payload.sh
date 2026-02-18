@@ -81,7 +81,7 @@ LOG green "All pre-flight checks passed."
 ############################
 
 LOG "Launching text picker..."
-resp=$(TEXT_PICKER "Enter username to search" "pineapplesareyummy")
+resp=$(TEXT_PICKER "Enter username to search" "example")
 
 case $? in
     $DUCKYSCRIPT_CANCELLED)
